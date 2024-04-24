@@ -1,0 +1,1 @@
+ /Users/titas/StudioProjects/news_api/.dart_tool/flutter_build/52580157982b4728c58025d5098f09f8/native_assets.yaml: 
