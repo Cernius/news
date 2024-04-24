@@ -387,6 +387,13 @@
             </list>
           </value>
         </entry>
+        <entry key="plugin_platform_interface">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/plugin_platform_interface-2.1.8/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="pool">
           <value>
             <list>
@@ -548,6 +555,34 @@
             </list>
           </value>
         </entry>
+        <entry key="webview_flutter">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/webview_flutter-4.7.0/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="webview_flutter_android">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/webview_flutter_android-3.16.0/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="webview_flutter_platform_interface">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/webview_flutter_platform_interface-2.10.0/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="webview_flutter_wkwebview">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/webview_flutter_wkwebview-3.13.0/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="yaml">
           <value>
             <list>
@@ -611,6 +646,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/nested-1.0.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/package_config-2.1.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/path-1.9.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/plugin_platform_interface-2.1.8/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/pool-1.5.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/provider-6.1.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/pub_semver-2.1.4/lib" />
@@ -633,6 +669,10 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/watcher-1.1.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/web-0.5.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/web_socket_channel-2.4.5/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/webview_flutter-4.7.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/webview_flutter_android-3.16.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/webview_flutter_platform_interface-2.10.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/webview_flutter_wkwebview-3.13.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/yaml-3.1.2/lib" />
       <root url="file://$USER_HOME$/Downloads/flutter/bin/cache/pkg/sky_engine/lib" />
       <root url="file://$USER_HOME$/Downloads/flutter/packages/flutter/lib" />

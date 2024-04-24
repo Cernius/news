@@ -1,28 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:news_api/domain/models/article.dart';
+import 'package:news_api/presentation/common/utils/context_extensions.dart';
 import 'package:news_api/presentation/common/utils/date_time_extension.dart';
 import 'package:news_api/presentation/common/utils/dimensions.dart';
 import 'package:news_api/presentation/common/utils/get_images.dart';
-import 'package:news_api/presentation/news_details/screens/news_details_screen.dart';
+import 'package:news_api/presentation/news_details/ui/news_details_screen.dart';
 
 class ArticleWidget extends StatelessWidget {
   final Article article;
 
   const ArticleWidget({super.key, required this.article});
 
+  void navigateToNewsDetailsScreen(Article article, context) {
+    //Typically would implement go_router for routing, but for simplicity using the Navigator
+    Navigator.of(context).push(
+      PageRouteBuilder(
+        pageBuilder: (_, __, ___) => NewsDetailsScreen(article: article),
+        transitionDuration: const Duration(milliseconds: 100),
+        reverseTransitionDuration: const Duration(milliseconds: 100),
+        transitionsBuilder: (_, a, __, c) => FadeTransition(opacity: a, child: c),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        //Typically would implement go_router for routing, but for simplicity using the Navigator
-        Navigator.of(context).push(
-          PageRouteBuilder(
-            pageBuilder: (_, __, ___) => NewsDetailsScreen(article: article),
-            transitionDuration: const Duration(milliseconds: 100),
-            reverseTransitionDuration: const Duration(milliseconds: 100),
-            transitionsBuilder: (_, a, __, c) => FadeTransition(opacity: a, child: c),
-          ),
-        );
+        navigateToNewsDetailsScreen(article, context);
       },
       child: Container(
         decoration: BoxDecoration(
@@ -32,11 +37,10 @@ class ArticleWidget extends StatelessWidget {
             BoxShadow(
               color: Color.fromRGBO(0, 0, 0, 0.15),
               blurRadius: 4.0,
-              offset: Offset(0, 0),
             ),
           ],
         ),
-        padding: const EdgeInsets.all(Dimensions.paddingMedium),
+        padding: const EdgeInsets.all(Dimensions.paddingSmall),
         margin: const EdgeInsets.symmetric(
           horizontal: Dimensions.paddingSmall,
           vertical: Dimensions.paddingExtraSmall,
@@ -52,9 +56,15 @@ class ArticleWidget extends StatelessWidget {
                   Text(
                     article.title ?? '',
                     maxLines: 3,
+                    style: context.theme.textTheme.labelLarge,
                   ),
                   const SizedBox(height: Dimensions.paddingSmall),
-                  Text(article.publishedAt.toFormattedDate()),
+                  Text(
+                    article.publishedAt.toFormattedDate(),
+                    style: context.theme.textTheme.bodySmall?.copyWith(
+                      color: context.theme.colorScheme.secondary,
+                    ),
+                  ),
                 ],
               ),
             )
@@ -72,19 +82,25 @@ class _Image extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (imageUrl != null) {
-      return Image.network(
-        imageUrl!,
-        height: Dimensions.imageHeight,
-        width: Dimensions.imageWidth,
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
+      child: _getImage(),
+    );
+  }
+
+  Widget _getImage() {
+    if (imageUrl == null) {
+      return Image.asset(
+        GetImages.imagePlaceHolder,
+        width: Dimensions.listImageWidth,
+        height: Dimensions.listImageHeight,
         fit: BoxFit.cover,
       );
     }
-
-    return Image.asset(
-      GetImages.imagePlaceHolder,
-      height: Dimensions.imageHeight,
-      width: Dimensions.imageWidth,
+    return Image.network(
+      imageUrl!,
+      width: Dimensions.listImageWidth,
+      height: Dimensions.listImageHeight,
       fit: BoxFit.cover,
     );
   }

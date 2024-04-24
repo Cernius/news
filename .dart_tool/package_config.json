@@ -332,6 +332,12 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "plugin_platform_interface",
+      "rootUri": "file:///Users/titas/.pub-cache/hosted/pub.dev/plugin_platform_interface-2.1.8",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "pool",
       "rootUri": "file:///Users/titas/.pub-cache/hosted/pub.dev/pool-1.5.1",
       "packageUri": "lib/",
@@ -470,6 +476,30 @@
       "languageVersion": "3.3"
     },
     {
+      "name": "webview_flutter",
+      "rootUri": "file:///Users/titas/.pub-cache/hosted/pub.dev/webview_flutter-4.7.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
+      "name": "webview_flutter_android",
+      "rootUri": "file:///Users/titas/.pub-cache/hosted/pub.dev/webview_flutter_android-3.16.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.1"
+    },
+    {
+      "name": "webview_flutter_platform_interface",
+      "rootUri": "file:///Users/titas/.pub-cache/hosted/pub.dev/webview_flutter_platform_interface-2.10.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "webview_flutter_wkwebview",
+      "rootUri": "file:///Users/titas/.pub-cache/hosted/pub.dev/webview_flutter_wkwebview-3.13.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
       "name": "yaml",
       "rootUri": "file:///Users/titas/.pub-cache/hosted/pub.dev/yaml-3.1.2",
       "packageUri": "lib/",
@@ -482,7 +512,7 @@
       "languageVersion": "3.3"
     }
   ],
-  "generated": "2024-04-24T16:38:00.605180Z",
+  "generated": "2024-04-24T18:14:12.660970Z",
   "generator": "pub",
   "generatorVersion": "3.3.2"
 }
