@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:news_api/data/db/database.dart';
 import 'package:news_api/data/repositories/article_repo_impl.dart';
 import 'package:news_api/data/repositories/preference_repo_impl.dart';
 import 'package:news_api/data/server_api.dart';
@@ -17,8 +18,13 @@ void setupDependencyInjection() {
       preferenceRepo: getIt<PreferenceRepo>(),
     ),
   );
+  getIt.registerSingleton<AppDatabase>(AppDatabase());
+
   getIt.registerSingleton<ArticleRepo>(
-    ArticleRepoImpl(getIt<ServerApi>()),
+    ArticleRepoImpl(
+      getIt<ServerApi>(),
+      getIt<AppDatabase>(),
+    ),
   );
 
   getIt.registerFactory<NewsListObserver>(() => NewsListObserver());

@@ -41,12 +41,52 @@ mixin _$NewsListObserver on NewsListObserverBase, Store {
     });
   }
 
+  late final _$loadingMoreAtom =
+      Atom(name: 'NewsListObserverBase.loadingMore', context: context);
+
+  @override
+  bool get loadingMore {
+    _$loadingMoreAtom.reportRead();
+    return super.loadingMore;
+  }
+
+  @override
+  set loadingMore(bool value) {
+    _$loadingMoreAtom.reportWrite(value, super.loadingMore, () {
+      super.loadingMore = value;
+    });
+  }
+
+  late final _$hasMoreArticlesAtom =
+      Atom(name: 'NewsListObserverBase.hasMoreArticles', context: context);
+
+  @override
+  bool get hasMoreArticles {
+    _$hasMoreArticlesAtom.reportRead();
+    return super.hasMoreArticles;
+  }
+
+  @override
+  set hasMoreArticles(bool value) {
+    _$hasMoreArticlesAtom.reportWrite(value, super.hasMoreArticles, () {
+      super.hasMoreArticles = value;
+    });
+  }
+
   late final _$getArticlesAsyncAction =
       AsyncAction('NewsListObserverBase.getArticles', context: context);
 
   @override
   Future<void> getArticles() {
     return _$getArticlesAsyncAction.run(() => super.getArticles());
+  }
+
+  late final _$getMoreArticlesAsyncAction =
+      AsyncAction('NewsListObserverBase.getMoreArticles', context: context);
+
+  @override
+  Future<void> getMoreArticles() {
+    return _$getMoreArticlesAsyncAction.run(() => super.getMoreArticles());
   }
 
   late final _$NewsListObserverBaseActionController =
@@ -64,21 +104,12 @@ mixin _$NewsListObserver on NewsListObserverBase, Store {
   }
 
   @override
-  void setLoading(bool value) {
-    final _$actionInfo = _$NewsListObserverBaseActionController.startAction(
-        name: 'NewsListObserverBase.setLoading');
-    try {
-      return super.setLoading(value);
-    } finally {
-      _$NewsListObserverBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
 articles: ${articles},
-isLoading: ${isLoading}
+isLoading: ${isLoading},
+loadingMore: ${loadingMore},
+hasMoreArticles: ${hasMoreArticles}
     ''';
   }
 }

@@ -1,3 +1,4 @@
+
 import 'package:dio/dio.dart';
 import 'package:news_api/data/models/article_dto.dart';
 import 'package:news_api/domain/repositories/preference_repo.dart';
@@ -16,8 +17,12 @@ class ServerApi {
         'apiKey': _preferenceRepo.getApiToken(),
       };
 
-  Future<Response> get(String path) async {
-    return _dio.get('$serverUrl/$path', queryParameters: queryParameters);
+  Future<Response> get(String path, {Map<String, dynamic>? query}) async {
+    final Map<String, dynamic> queryParams = Map.from(queryParameters)..addAll(query ?? {});
+    return _dio.get(
+      '$serverUrl/$path',
+      queryParameters: queryParams,
+    );
   }
 
   Future<Response> post(String path, dynamic data) async {
@@ -32,8 +37,9 @@ class ServerApi {
     return _dio.delete(path);
   }
 
-  Future<List<ArticleDTO>> getArticles() async {
-    final response = await get('top-headlines');
+  Future<List<ArticleDTO>> getArticles(int page) async {
+    final query = {'page': page};
+    final response = await get('top-headlines', query: query);
     final List<dynamic> articles = response.data['articles'];
     return articles.map((e) => ArticleDTO.fromJson(e)).toList();
   }

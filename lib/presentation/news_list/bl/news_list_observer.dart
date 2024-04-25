@@ -18,13 +18,39 @@ abstract class NewsListObserverBase with Store {
   @observable
   bool isLoading = false;
 
+  @observable
+  bool loadingMore = false;
+
+  int page = 1;
+
+  @observable
+  bool hasMoreArticles = true;
+
   @action
   Future<void> getArticles() async {
+    hasMoreArticles = true;
+    page = 1;
     setLoading(true);
-    final articles = await _articleRepo.getArticles();
+    final articles = await _articleRepo.getArticlesAPI(page);
     final cleanArticles = _removeDeletedArticles(articles);
     this.articles = ObservableList.of(cleanArticles);
+
     setLoading(false);
+  }
+
+  @action
+  Future<void> getMoreArticles() async {
+    page = page + 1;
+    if (hasMoreArticles == false) return;
+    setLoadingMore(true);
+    final articles = await _articleRepo.getArticlesAPI(page);
+
+    if (articles.isEmpty) {
+      hasMoreArticles = false;
+    }
+    final cleanArticles = _removeDeletedArticles(articles);
+    this.articles = ObservableList.of([...this.articles, ...cleanArticles]);
+    setLoadingMore(false);
   }
 
   @action
@@ -33,8 +59,11 @@ abstract class NewsListObserverBase with Store {
     return articles;
   }
 
-  @action
   void setLoading(bool value) {
     isLoading = value;
+  }
+
+  void setLoadingMore(bool value) {
+    loadingMore = value;
   }
 }
