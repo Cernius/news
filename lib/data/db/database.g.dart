@@ -38,7 +38,9 @@ class $ArticlesDaoTable extends ArticlesDao
   @override
   late final GeneratedColumn<String> url = GeneratedColumn<String>(
       'url', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'));
   static const VerificationMeta _urlToImageMeta =
       const VerificationMeta('urlToImage');
   @override

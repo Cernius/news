@@ -17,7 +17,7 @@ class ArticlesDao extends Table {
 
   TextColumn get description => text().nullable()();
 
-  TextColumn get url => text()();
+  TextColumn get url => text().unique()();
 
   TextColumn get urlToImage => text().nullable()();
 
