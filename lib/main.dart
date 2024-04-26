@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_api/common/app_module.dart';
 import 'package:news_api/presentation/common/theme/app_theme.dart';
-import 'package:news_api/presentation/news_list/ui/news_list_screen.dart';
+import 'package:news_api/presentation/news_list/ui/news_screen.dart';
 
 void main() {
   setupDependencyInjection();
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: const AppTheme().themeData,
-      home: const NewsListScreen(),
+      home: const NewsScreen(),
     );
   }
 }

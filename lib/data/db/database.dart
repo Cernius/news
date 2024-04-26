@@ -43,12 +43,12 @@ class AppDatabase extends _$AppDatabase {
 
   Future<void> insertArticles(List<ArticlesDaoCompanion> articles) async {
     await batch((batch) {
-      batch.insertAll(articlesDao, articles);
+      batch.insertAll(articlesDao, articles, mode: InsertMode.insertOrReplace);
     });
   }
 
   Future<void> insertSource(SourcesDaoCompanion source) async {
-    await into(sourcesDao).insert(source);
+    await into(sourcesDao).insert(source, mode: InsertMode.insertOrReplace);
   }
 
   Future<List<ArticlesDaoData>> getArticles() async {
