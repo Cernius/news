@@ -1,6 +1,7 @@
 class Dimensions {
-  static const double imageWidth = 150;
-  static const double imageHeight = 100;
+  static const double listImageWidth = 150;
+  static const double listImageHeight = 100;
+  static const double articleImageHeight = 200;
 
   static const double paddingExtraSmall = 4;
   static const double paddingSmall = 8;

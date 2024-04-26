@@ -14,14 +14,14 @@ class AppTheme {
   /// Default `ThemeData` for App UI.
   ThemeData get themeData {
     return ThemeData(
+      bottomSheetTheme: _bottomSheetTheme,
       primaryColor: AppColors.primaryColor,
       canvasColor: _backgroundColor,
       scaffoldBackgroundColor: _backgroundColor,
       appBarTheme: _appBarTheme,
       textTheme: _textTheme,
-      buttonTheme: _buttonTheme,
       splashColor: AppColors.transparent,
-      textButtonTheme: _textButtonTheme,
+      filledButtonTheme: _filledButtonTheme,
       colorScheme: _colorScheme,
     );
   }
@@ -71,21 +71,19 @@ class AppTheme {
     decorationColor: AppColors.textColor,
   );
 
-  ButtonThemeData get _buttonTheme {
-    return ButtonThemeData(
-      textTheme: ButtonTextTheme.primary,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
+  FilledButtonThemeData get _filledButtonTheme {
+    return FilledButtonThemeData(
+      style: TextButton.styleFrom(
+        textStyle: _textTheme.labelLarge,
+        foregroundColor: AppColors.white,
       ),
     );
   }
 
-  TextButtonThemeData get _textButtonTheme {
-    return TextButtonThemeData(
-      style: TextButton.styleFrom(
-        textStyle: _textTheme.labelLarge,
-        foregroundColor: AppColors.textColor,
-      ),
+  BottomSheetThemeData get _bottomSheetTheme {
+    return BottomSheetThemeData(
+      backgroundColor: AppColors.backgroundColor,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Dimensions.radiusMedium)),
     );
   }
 }

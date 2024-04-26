@@ -10,5 +10,5 @@ class AppColors {
   static const Color borderColor = Color(0xFFDDDDDD);
   static const Color errorColor = Color(0xFFB00020);
   static const Color transparent = Colors.transparent;
-
+  static const Color white = backgroundColor;
 }
