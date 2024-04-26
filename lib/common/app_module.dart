@@ -27,5 +27,9 @@ void setupDependencyInjection() {
     ),
   );
 
-  getIt.registerFactory<NewsListObserver>(() => NewsListObserver());
+  getIt.registerFactory<NewsListObserver>(
+    () => NewsListObserver(
+      getIt<ArticleRepo>(),
+    ),
+  );
 }

@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:mobx/mobx.dart';
-import 'package:news_api/common/app_module.dart';
 import 'package:news_api/domain/models/article.dart';
 import 'package:news_api/domain/repositories/article_repo.dart';
 
@@ -12,7 +11,7 @@ class NewsListObserver = NewsListObserverBase with _$NewsListObserver;
 abstract class NewsListObserverBase with Store {
   final ArticleRepo _articleRepo;
 
-  NewsListObserverBase() : _articleRepo = getIt<ArticleRepo>();
+  NewsListObserverBase(ArticleRepo articleRepo) : _articleRepo = articleRepo;
 
   @observable
   ObservableList<Article> articles = ObservableList<Article>();
@@ -23,49 +22,52 @@ abstract class NewsListObserverBase with Store {
   @observable
   bool loadingMore = false;
 
-  int page = 1;
-
   @observable
   bool hasMoreArticles = true;
 
   @observable
   String errorMessage = '';
 
+  int page = 1;
+
   @action
   Future<void> getArticles() async {
     try {
-      hasMoreArticles = true;
-      page = 1;
+      resetPagination();
       setLoading(true);
-      final articles = await _articleRepo.getArticlesAPI(page);
-      final cleanArticles = _removeDeletedArticles(articles);
-      this.articles = ObservableList.of(cleanArticles);
-
+      final fetchedArticles = await _fetchArticles(page);
+      setArticles(fetchedArticles);
       setLoading(false);
     } catch (e) {
-      setError(e);
+      handleError(e);
     }
   }
 
   @action
   Future<void> getMoreArticles() async {
-    page = page + 1;
-    if (hasMoreArticles == false) return;
-    setLoadingMore(true);
-    final articles = await _articleRepo.getArticlesAPI(page);
-
-    if (articles.isEmpty) {
-      hasMoreArticles = false;
+    try {
+      page++;
+      setLoadingMore(true);
+      final fetchedArticles = await _fetchArticles(page);
+      appendArticles(fetchedArticles);
+      setLoadingMore(false);
+    } catch (e) {
+      handleError(e);
     }
-    final cleanArticles = _removeDeletedArticles(articles);
-    this.articles = ObservableList.of([...this.articles, ...cleanArticles]);
-    setLoadingMore(false);
   }
 
-  @action
+  Future<List<Article>> _fetchArticles(int page) async {
+    final articles = await _articleRepo.getArticlesAPI(page);
+    return _removeDeletedArticles(articles);
+  }
+
   List<Article> _removeDeletedArticles(List<Article> articles) {
-    articles.removeWhere((article) => article.title == '[Removed]');
-    return articles;
+    return articles.where((article) => article.title != '[Removed]').toList();
+  }
+
+  void resetPagination() {
+    page = 1;
+    hasMoreArticles = true;
   }
 
   void setLoading(bool value) {
@@ -76,8 +78,20 @@ abstract class NewsListObserverBase with Store {
     loadingMore = value;
   }
 
-  void setError(error) {
+  void handleError(dynamic error) {
     log(error.toString());
     errorMessage = error.toString();
+  }
+
+  void setArticles(List<Article> newArticles) {
+    articles.clear();
+    articles.addAll(newArticles);
+  }
+
+  void appendArticles(List<Article> newArticles) {
+    articles.addAll(newArticles);
+    if (newArticles.isEmpty) {
+      hasMoreArticles = false;
+    }
   }
 }
