@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:mobx/mobx.dart';
 import 'package:news_api/common/app_module.dart';
 import 'package:news_api/domain/models/article.dart';
@@ -26,6 +28,9 @@ abstract class NewsListObserverBase with Store {
   @observable
   bool hasMoreArticles = true;
 
+  @observable
+  String errorMessage = '';
+
   @action
   Future<void> getArticles() async {
     try {
@@ -38,7 +43,7 @@ abstract class NewsListObserverBase with Store {
 
       setLoading(false);
     } catch (e) {
-      print(e);
+      setError(e);
     }
   }
 
@@ -69,5 +74,10 @@ abstract class NewsListObserverBase with Store {
 
   void setLoadingMore(bool value) {
     loadingMore = value;
+  }
+
+  void setError(error) {
+    log(error.toString());
+    errorMessage = error.toString();
   }
 }
