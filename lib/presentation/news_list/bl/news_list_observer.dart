@@ -28,14 +28,18 @@ abstract class NewsListObserverBase with Store {
 
   @action
   Future<void> getArticles() async {
-    hasMoreArticles = true;
-    page = 1;
-    setLoading(true);
-    final articles = await _articleRepo.getArticlesAPI(page);
-    final cleanArticles = _removeDeletedArticles(articles);
-    this.articles = ObservableList.of(cleanArticles);
+    try {
+      hasMoreArticles = true;
+      page = 1;
+      setLoading(true);
+      final articles = await _articleRepo.getArticlesAPI(page);
+      final cleanArticles = _removeDeletedArticles(articles);
+      this.articles = ObservableList.of(cleanArticles);
 
-    setLoading(false);
+      setLoading(false);
+    } catch (e) {
+      print(e);
+    }
   }
 
   @action

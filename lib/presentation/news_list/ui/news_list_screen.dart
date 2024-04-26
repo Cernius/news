@@ -35,11 +35,17 @@ class _NewsListScreenState extends State<NewsListScreen> {
         title: const Text('News List'),
       ),
       body: SafeArea(
+        bottom: false,
         child: Observer(
           builder: (_) {
             if (_newsListObserver.isLoading) {
               return const Center(
                 child: CircularProgressIndicator(),
+              );
+            }
+            if (_newsListObserver.articles.isEmpty) {
+              return const Center(
+                child: Text('No articles found'),
               );
             }
             return RefreshIndicator(

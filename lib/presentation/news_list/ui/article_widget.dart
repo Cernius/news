@@ -102,6 +102,14 @@ class _Image extends StatelessWidget {
       width: Dimensions.listImageWidth,
       height: Dimensions.listImageHeight,
       fit: BoxFit.cover,
+      errorBuilder: (context, error, stackTrace) {
+        return Image.asset(
+          GetImages.imagePlaceHolder,
+          width: Dimensions.listImageWidth,
+          height: Dimensions.listImageHeight,
+          fit: BoxFit.cover,
+        );
+      },
     );
   }
 }

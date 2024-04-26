@@ -6,6 +6,7 @@ import 'package:news_api/data/server_api.dart';
 import 'package:news_api/domain/models/article.dart';
 import 'package:news_api/domain/models/source.dart';
 import 'package:news_api/domain/repositories/article_repo.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 class ArticleRepoImpl extends ArticleRepo {
   final ServerApi _serverApi;
@@ -17,6 +18,10 @@ class ArticleRepoImpl extends ArticleRepo {
 
   @override
   Future<List<Article>> getArticlesAPI(int page) async {
+    final bool isConnected = await isConnectedCheck();
+    if (!isConnected) {
+      return getArticlesDB();
+    }
     final articles = await _serverApi.getArticles(page);
     final mappedArticles = mapArticlesFromApi(articles);
     insertArticlesToDB(mappedArticles);
@@ -67,5 +72,13 @@ class ArticleRepoImpl extends ArticleRepo {
 
   Future<void> insertSource(SourcesDaoCompanion source) async {
     await _appDatabase.insertSource(source);
+  }
+
+  Future<bool> isConnectedCheck() async {
+    final List<ConnectivityResult> result = await Connectivity().checkConnectivity();
+    if (result.contains(ConnectivityResult.none)) {
+      return false;
+    }
+    return true;
   }
 }
