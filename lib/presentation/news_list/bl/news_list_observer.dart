@@ -57,7 +57,7 @@ abstract class NewsListObserverBase with Store {
   }
 
   Future<List<Article>> _fetchArticles(int page) async {
-    final articles = await _articleRepo.getArticlesAPI(page);
+    final articles = await _articleRepo.getArticlesAPI(page: page);
     return _removeDeletedArticles(articles);
   }
 

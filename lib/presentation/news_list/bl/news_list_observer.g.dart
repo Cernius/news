@@ -73,6 +73,22 @@ mixin _$NewsListObserver on NewsListObserverBase, Store {
     });
   }
 
+  late final _$errorMessageAtom =
+      Atom(name: 'NewsListObserverBase.errorMessage', context: context);
+
+  @override
+  String get errorMessage {
+    _$errorMessageAtom.reportRead();
+    return super.errorMessage;
+  }
+
+  @override
+  set errorMessage(String value) {
+    _$errorMessageAtom.reportWrite(value, super.errorMessage, () {
+      super.errorMessage = value;
+    });
+  }
+
   late final _$getArticlesAsyncAction =
       AsyncAction('NewsListObserverBase.getArticles', context: context);
 
@@ -89,27 +105,14 @@ mixin _$NewsListObserver on NewsListObserverBase, Store {
     return _$getMoreArticlesAsyncAction.run(() => super.getMoreArticles());
   }
 
-  late final _$NewsListObserverBaseActionController =
-      ActionController(name: 'NewsListObserverBase', context: context);
-
-  @override
-  List<Article> _removeDeletedArticles(List<Article> articles) {
-    final _$actionInfo = _$NewsListObserverBaseActionController.startAction(
-        name: 'NewsListObserverBase._removeDeletedArticles');
-    try {
-      return super._removeDeletedArticles(articles);
-    } finally {
-      _$NewsListObserverBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
   @override
   String toString() {
     return '''
 articles: ${articles},
 isLoading: ${isLoading},
 loadingMore: ${loadingMore},
-hasMoreArticles: ${hasMoreArticles}
+hasMoreArticles: ${hasMoreArticles},
+errorMessage: ${errorMessage}
     ''';
   }
 }

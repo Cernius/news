@@ -17,7 +17,7 @@ class ArticleRepoImpl extends ArticleRepo {
   ArticleRepoImpl(this._serverApi, this._appDatabase);
 
   @override
-  Future<List<Article>> getArticlesAPI(int page) async {
+  Future<List<Article>> getArticlesAPI({required int page}) async {
     final bool isConnected = await isConnectedCheck();
     if (!isConnected) {
       return getArticlesDB();
