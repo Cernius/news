@@ -6,7 +6,7 @@ import 'package:news_api/data/server_api.dart';
 import 'package:news_api/domain/repositories/article_repo.dart';
 import 'package:news_api/domain/repositories/preference_repo.dart';
 import 'package:news_api/presentation/news_list/bl/news_list_observer.dart';
-
+import 'package:connectivity_plus/connectivity_plus.dart';
 final getIt = GetIt.instance;
 
 void setupDependencyInjection() {
@@ -24,6 +24,7 @@ void setupDependencyInjection() {
     ArticleRepoImpl(
       getIt<ServerApi>(),
       getIt<AppDatabase>(),
+      Connectivity(),
     ),
   );
 

@@ -13,8 +13,9 @@ class ArticleRepoImpl extends ArticleRepo {
   final AppDatabase _appDatabase;
   final ArticleMapper _articleMapper = ArticleMapper();
   final SourceMapper _sourceMapper = SourceMapper();
+  final Connectivity _connectivity;
 
-  ArticleRepoImpl(this._serverApi, this._appDatabase);
+  ArticleRepoImpl(this._serverApi, this._appDatabase, this._connectivity);
 
   @override
   Future<List<Article>> getArticlesAPI({required int page}) async {
@@ -75,7 +76,7 @@ class ArticleRepoImpl extends ArticleRepo {
   }
 
   Future<bool> isConnectedCheck() async {
-    final List<ConnectivityResult> result = await Connectivity().checkConnectivity();
+    final List<ConnectivityResult> result = await _connectivity.checkConnectivity();
     if (result.contains(ConnectivityResult.none)) {
       return false;
     }
