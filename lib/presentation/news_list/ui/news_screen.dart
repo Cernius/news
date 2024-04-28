@@ -39,10 +39,18 @@ class _NewsScreenState extends State<NewsScreen> {
         child: Observer(
           builder: (_) {
             if (_newsListObserver.errorMessage.isNotEmpty) {
-              return Center(
-                child: Text(
-                  _newsListObserver.errorMessage,
-                  style: context.theme.textTheme.headlineMedium,
+              return RefreshIndicator(
+                onRefresh: () async {
+                  _newsListObserver.getArticles();
+                },
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  child: Center(
+                    child: Text(
+                      _newsListObserver.errorMessage,
+                      style: context.theme.textTheme.headlineSmall,
+                    ),
+                  ),
                 ),
               );
             }
