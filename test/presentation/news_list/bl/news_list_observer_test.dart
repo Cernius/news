@@ -10,8 +10,6 @@ import 'package:news_api/presentation/news_list/bl/news_list_observer.dart';
 import 'news_list_observer_test.mocks.dart';
 
 void main() {
-  // test random thing
-
   group('NewsListObserver tests', () {
     late NewsListObserver newsListObserver;
     late MockArticleRepo mockArticleRepo;
